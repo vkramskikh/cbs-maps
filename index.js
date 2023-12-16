@@ -3,6 +3,8 @@ const {createProxyMiddleware} = require('http-proxy-middleware');
 const path = require('path');
 const fs = require('fs');
 
+require('dotenv').config()
+
 const app = express();
 const PORT = 3000;
 
