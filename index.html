@@ -87,12 +87,12 @@
         top: 0px;
         left: 778px;
         width: 200px;
-	background: #fff;
-	background: rgba(255,255,255,0.8);
+    background: #fff;
+    background: rgba(255,255,255,0.8);
     }
     #formulier .header {
-    	color: #fff;
-    	background-color: #D30910;
+        color: #fff;
+        background-color: #D30910;
         font-size: 8pt;
         font-weight: bold;
         text-align: left;
@@ -236,9 +236,9 @@
     }
     <!--SLIDER-STIJL-->
     .transparantie {
-        background:	transparent;
-        width:	100%;
-        height:	100%;
+        background:    transparent;
+        width:    100%;
+        height:    100%;
     }
     .transparantie td {
         padding: 1px;
@@ -246,10 +246,10 @@
     .dynamic-slider-control {
         position: absolute;
         top: 655px;
-        left: 150px;
-        width: 828px;
-        height:	20px;
-        margin:	0;
+        left: 0;
+        width: 978px;
+        height: 20px;
+        margin: 0;
     }
     </style>
     <script type="text/javascript">
@@ -308,12 +308,12 @@
                 'buffer': 0
             };
             map = new OpenLayers.Map('map', mapoptions);
-            gmap = new OpenLayers.Layer.Google("Google Physical",
+            gmap = new OpenLayers.Layer.Google("Google",
                 {
-                type: google.maps.MapTypeId.HYBRID,
+                type: google.maps.MapTypeId.ROADMAP,
                 sphericalMercator:true,
-                MIN_ZOOM_LEVEL: 7, <!--kleiner getal: uitzoomen tot wereldbol ( 7 = Nederland)-->
-                MAX_ZOOM_LEVEL: 18 <!--groter getal: inzoomen tot op straatniveau-->
+                MIN_ZOOM_LEVEL: 7, // <!--kleiner getal: uitzoomen tot wereldbol ( 7 = Nederland)-->
+                MAX_ZOOM_LEVEL: 18 // <!--groter getal: inzoomen tot op straatniveau-->
             });
             provincies = new OpenLayers.Layer.Vector("KMLprovincies", {
                 style: {strokeColor: "black", strokeWidth: 2, strokeOpacity: 1, fill: false},
@@ -446,8 +446,8 @@
             OLfiscaal.setVisibility(false);
             OLoad.setVisibility(false);
             OLghhg.setVisibility(false);
-            map.addControl(info);
-            info.activate();
+            // map.addControl(info);
+            // info.activate();
             map.addLayers([
                         gmap,
                         provincies,
@@ -464,8 +464,8 @@
                         OLghhg
                         ]);
             var xypaar = randomcity().split(", ");
-            map.setCenter(new OpenLayers.LonLat(xypaar[0], xypaar[1]), 6); <!--zoomlevel is zoveelste tussen Google min en max zoom-->
-        } <!--.............................EINDE INIT...........................-->
+            map.setCenter(new OpenLayers.LonLat(xypaar[0], xypaar[1]), 6); // <!--zoomlevel is zoveelste tussen Google min en max zoom-->
+        }
         function s(radio) {
           for(item=0;item<document.layers.datalayer.length;item++) {
             eval(document.layers.datalayer[item].value+".setVisibility("+document.layers.datalayer[item].checked+")");
@@ -509,18 +509,18 @@
         }
         function removewords(id){
             document.getElementById(id).style.color='black';
-            if(document.getElementById(id).value=="Vul adres, postcode of plaats in..."){document.getElementById(id).value="";	}
+            if(document.getElementById(id).value=="Vul adres, postcode of plaats in..."){document.getElementById(id).value="";    }
         }
     </script>
   </head>
   <body onload="init()">
     <!--SLIDER-->
     <table class="transparantie" cellspacing="2" cellpadding="0" border="0">
-    <col style="width: 40px" />
-    <col style="" />
-    <col style="width: 10px" />
+    <!-- <col style="width: 40px" />
+    <col />
+    <col style="width: 10px" /> -->
     <tr>
-        <td style="font-family: Arial; font-size: 8pt; position: absolute; top: 658px; left: 5px;">Pas de doorzichtigheid aan:</td>
+        <!-- <td style="font-family: Arial; font-size: 8pt; position: absolute; top: 658px; left: 5px;">Pas de doorzichtigheid aan:</td> -->
         <td>
             <div class="slider" id="schuif" tabIndex="1">
                 <input class="slider-input" id="slider-input" />
@@ -533,10 +533,10 @@
         r.setMaximum(255);
         r.onchange = function changeOpacity(byOpacity) {
                     var newOpacity = r.getValue()/255;
-		    if (document.layers && document.layers.datalayer) {
+            if (document.layers && document.layers.datalayer) {
                         for(item=0;item<document.layers.datalayer.length;item++) {
-				eval(document.layers.datalayer[item].value+".setOpacity("+newOpacity+")");
-			}
+                eval(document.layers.datalayer[item].value+".setOpacity("+newOpacity+")");
+            }
                     }
         };
         r.setValue(153);
@@ -550,30 +550,25 @@ onmouseout="this.style.opacity=0.75"/>
         <h3>
           <input id="address" type="text" style="font-family:Arial;font-size:8pt;margin-top:1px;width:215px;height:15px;color:#737373" onclick="removewords('address')" onkeypress="removewords('address')" value="Vul adres, postcode of plaats in..." />
           <input type="submit" value="Toon op kaart" class="zoekbutton"/>
-          <span style="position:relative;left:75px">Klik op de kaart om de omgeving in StreetView te zien.</span>
         </h3>
       </form>
     </div>
     <span id="scaleline" style="float:left"></span>
     <div id="formulier">
         <form name="layers" action="#">
-					<div class="header">Kies een onderwerp:</div>
-					<input type="radio" name="datalayer" id="dl01" checked="true" value="OLnwallochtonen" onClick="s(this)"/><label for="dl01">Niet-westerse allochtonen<br></label>
-					<input type="radio" name="datalayer" id="dl02" value="OLplus65" onClick="s(this)"/><label for="dl02">65-plussers<br></label>
-					<input type="radio" name="datalayer" id="dl03" value="OLplus75" onClick="s(this)"/><label for="dl03">75-plussers<br></label>
-					<input type="radio" name="datalayer" id="dl04" value="OLmin14" onClick="s(this)"/><label for="dl04">Kinderen jonger dan 14 jaar<br></label>
-					<input type="radio" name="datalayer" id="dl05" value="OLeenpersoons" onClick="s(this)"/><label for="dl05">Eenpersoonshuishoudens<br></label>
-					<input type="radio" name="datalayer" id="dl06" value="OLeenouder" onClick="s(this)"/><label for="dl06">Eenouderhuishoudens<br></label>
-					<input type="radio" name="datalayer" id="dl07" value="OLhhkind" onClick="s(this)"/><label for="dl07">Huishoudens met kinderen<br></label>
-					<input type="radio" name="datalayer" id="dl08" value="OLvrouw" onClick="s(this)"/><label for="dl08">Verhouding man/vrouw<br></label>
-					<input type="radio" name="datalayer" id="dl09" value="OLfiscaal" onClick="s(this)"/><label for="dl09">Fiscaal maandinkomen per persoon<br></label>
-					<input type="radio" name="datalayer" id="dl10" value="OLoad" onClick="s(this)"/><label for="dl10">Mate van stedelijkheid<br></label>
-					<input type="radio" name="datalayer" id="dl11" value="OLghhg" onClick="s(this)"/><label for="dl11">Gemiddelde huishoudensgrootte</label>
+            <div class="header">Kies een onderwerp:</div>
+            <input type="radio" name="datalayer" id="dl01" checked="true" value="OLnwallochtonen" onClick="s(this)"/><label for="dl01">Niet-westerse allochtonen<br></label>
+            <input type="radio" name="datalayer" id="dl02" value="OLplus65" onClick="s(this)"/><label for="dl02">65-plussers<br></label>
+            <input type="radio" name="datalayer" id="dl03" value="OLplus75" onClick="s(this)"/><label for="dl03">75-plussers<br></label>
+            <input type="radio" name="datalayer" id="dl04" value="OLmin14" onClick="s(this)"/><label for="dl04">Kinderen jonger dan 14 jaar<br></label>
+            <input type="radio" name="datalayer" id="dl05" value="OLeenpersoons" onClick="s(this)"/><label for="dl05">Eenpersoonshuishoudens<br></label>
+            <input type="radio" name="datalayer" id="dl06" value="OLeenouder" onClick="s(this)"/><label for="dl06">Eenouderhuishoudens<br></label>
+            <input type="radio" name="datalayer" id="dl07" value="OLhhkind" onClick="s(this)"/><label for="dl07">Huishoudens met kinderen<br></label>
+            <input type="radio" name="datalayer" id="dl08" value="OLvrouw" onClick="s(this)"/><label for="dl08">Verhouding man/vrouw<br></label>
+            <input type="radio" name="datalayer" id="dl09" value="OLfiscaal" onClick="s(this)"/><label for="dl09">Fiscaal maandinkomen per persoon<br></label>
+            <input type="radio" name="datalayer" id="dl10" value="OLoad" onClick="s(this)"/><label for="dl10">Mate van stedelijkheid<br></label>
+            <input type="radio" name="datalayer" id="dl11" value="OLghhg" onClick="s(this)"/><label for="dl11">Gemiddelde huishoudensgrootte</label>
         </form>
-    </div>
-    <div id="perma"><a href="#" id="permalink" style="text-decoration:none;color:#003399;clear:left;float:left"></a></div>
-    <div id="toelichting">
-        <p>Deze kaart toont voor elke plek in Nederland de beschikbare demografische gegevens van het CBS op postcodeniveau. De gegevens van de circa 430.000 postcodes zijn hier geinterpoleerd zodat een mooi vloeiend beeld ontstaat. De waarden van elke pixel zijn het gewogen gemiddelde van de waarden van de dichtstbijzijnde postcodes. Hoe dichter bij, hoe zwaarder de waarde weegt. Als er niet minimaal vijf waarden binnen een straal van 100 meter zijn, wordt er niets getoond.</p>
     </div>
   </body>
 </html>
