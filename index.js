@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use('*', createProxyMiddleware({target: 'https://maps.nrc.nl', changeOrigin: true}));
+app.use('*', createProxyMiddleware({target: 'https://maps.nrc.nl', changeOrigin: true, secure: false}));
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
